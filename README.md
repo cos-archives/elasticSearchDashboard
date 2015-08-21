@@ -3,29 +3,29 @@
 ##By Ben Yetton
 
 **Version 0.1.0**
+
 **August 21, 2015**
 
 Technologies Involved:
-Mithril - Client side framework for patterns, DOM management and requests
-C3.js -  Charting librarary for interactive charts
-Elasticsearch - database and search library for index and collating documents (nodes)
-All code is in Javascript
+- Mithril - Client side framework for patterns, DOM management and requests
+- C3.js -  Charting librarary for interactive charts
+- Elasticsearch - database and search library for index and collating documents (nodes)
+- All code is in Javascript
 
-Basic Specification:
+[1] Basic Specification:
 Can be added to any page to display search results and statistics from an elasticsearch database via ‘search widgets’
 A search dashboard component contains basic information on what requests to send elastic and how/when to run them
 Results from requests are piped to widgets, which then parse this information and display it.
 Widgets can be of any type (charts, display results, searchbar, etc), and can easily be created and laid out by developers
 Interaction with widgets is possible, and via callbacks to the dashboard, elastic search requests can be changed. In practice this means filters can be applied and removed from requests to update the result data that each widget displays.  
 
-Technical Specifications:
-
-Add to any page via .mount call
-Search requests are asynchronous and can run in serial or parallel
-Search requests fully customizable and open to developer
-Widgets are fully customizable and easy to create and layout
-Full widget communication via spoke and wheel style pattern (widgets communicate with dashboard, and dashboard back to widgets)
-Mithril c3 and elasticsearch can be abstracted away from developer
+[2] Technical Specifications:
+- Add to any page via .mount call
+- Search requests are asynchronous and can run in serial or parallel
+- Search requests fully customizable and open to developer
+- Widgets are fully customizable and easy to create and layout
+- Full widget communication via spoke and wheel style pattern (widgets communicate with dashboard, and dashboard back to widgets)
+- Mithril c3 and elasticsearch can be abstracted away from developer
 
 
 Outstanding Bugs:
