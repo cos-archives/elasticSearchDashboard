@@ -12,14 +12,14 @@ Technologies Involved:
 - Elasticsearch - database and search library for index and collating documents (nodes)
 - All code is in Javascript
 
-[1] Basic Specification:
+***[1] Basic Specification:***
 Can be added to any page to display search results and statistics from an elasticsearch database via ‘search widgets’
 A search dashboard component contains basic information on what requests to send elastic and how/when to run them
 Results from requests are piped to widgets, which then parse this information and display it.
 Widgets can be of any type (charts, display results, searchbar, etc), and can easily be created and laid out by developers
 Interaction with widgets is possible, and via callbacks to the dashboard, elastic search requests can be changed. In practice this means filters can be applied and removed from requests to update the result data that each widget displays.  
 
-[2] Technical Specifications:
+***[2] Technical Specifications:***
 - Add to any page via .mount call
 - Search requests are asynchronous and can run in serial or parallel
 - Search requests fully customizable and open to developer
