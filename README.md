@@ -32,9 +32,9 @@
 
 ***[4] TODOs:***
 - The time series widget pulls time range data from the main request, and filtering the date range then updates this main request. This means that when a range filter is applied, the data points outside of the filter do not display on the subgraph. The desired behavior is to have the subgraph always display the full range of data, regardless of the date filters applied. In the image below, all data points show on subchart:
-- [image]
+![Alt Full Range](/readme_images/fullRangeFilter.jpg?raw=true)
 But when filter is applied (grey box), the other data points disappear:
-- [image]
+![Alt Reduced Range](/readme_images/reducedRangeFilter.jpg?raw=true)
 **FIX:** Create a new parallel request which feeds aggregation data to the timechart, but does not have range filters applied to it. All other filters such as project type, contributor, etc would be applied as normal. Range filters would continue to be applied to the main request. This functionality already exists, a new request just needs to be written.
 - Error handling of elastic errors. Elastic errors will only return the same error every time (‘invalid query’) but other errors such as bad aggregation are possible.
 
