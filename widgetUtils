@@ -1,0 +1,108 @@
+'use strict';
+var $ = require('jquery');
+var $osf = require('js/osfHelpers');
+
+var widgetUtils = {};
+
+/**
+ * Return time since epoch (ms) in human readable format
+ *
+ * @param {string} timeSinceEpochInMs: the time since epoch in ms
+ * @return {string} human readable date
+ */
+widgetUtils.timeSinceEpochInMsToMMYY = function(timeSinceEpochInMs) {
+    var d = new Date(timeSinceEpochInMs);
+    return (d.getDate()+1).toString() + '/' + (d.getMonth()+1).toString() + '/' + d.getFullYear().toString().substring(2);
+};
+
+/**
+ * Checks if an update has been requested for this widget. THIS IS NOT A PURE FUNCTION: vm.widgetsToUpdate is modified
+ *
+ * @param {string} widgetName: name of widget to check
+ * @param {object} vm: searchDashboard vm containing a list of widgets that need to be updated (vm.widgetsToUpdate)
+ * @return {bool}  returns true if it has, false if not.
+ */
+widgetUtils.updateTriggered = function(widgetName, vm){
+    if (vm.widgetsToUpdate.indexOf(widgetName) === -1){
+        return false;
+    }
+    vm.widgetsToUpdate.splice($.inArray(widgetName, vm.widgetsToUpdate), 1); //signal that this widget has been redrawn
+    return true;
+};
+
+/**
+ * Adds the widget to the list of widgets that need to be updated (will actually update at next redraw)
+ *
+ * @param {Object} vm: searchDashboard vm containing a list of widgets that need to be updated (vm.widgetsToUpdate)
+ * @param {Array} widgetsToAdd: list of widgets that need to be added to the list of widgets to update
+ */
+widgetUtils.signalWidgetsToUpdate = function(vm, widgetsToAdd){
+    if ($.inArray('all', widgetsToAdd) > -1){
+        vm.widgetsToUpdate = widgetUtils.concatUnique(vm.widgetsToUpdate, vm.widgetIds);
+        return;
+    }
+    vm.widgetsToUpdate = widgetUtils.concatUnique(vm.widgetsToUpdate, widgetsToAdd);
+};
+
+/**
+ * Concatenates too arrays and removes non-unique values
+ *
+ * @param {Array} array1: array to add to
+ * @param {Array} array2: array to add
+ * @return {Bool}  concatenation of the unique values of the two arrays
+ */
+widgetUtils.concatUnique = function(array1, array2){
+     var temp = array1.concat(array2);
+     return temp.filter(function(item, i, arr){ return arr.indexOf(item) === i; }); //make unique so we dont redraw widgets more than we have to
+};
+
+/**
+ * Finds and returns the keys not present in an object.
+ *
+ * @param {array} keys: an array of keys to check against
+ * @param {object} object: The object to search through
+ * @return {array}  Missing keys from object, returns [] if nothing missing
+ */
+widgetUtils.keysNotInObject = function(keys, object){
+    return $.map(keys, function(key){
+        if (object[key] === undefined){
+            return key;
+        }
+    });
+};
+
+/**
+ * finds and returns and object from a list of objects whose id matches the given id.
+ *
+ * @param {array} listOfObjects: A array containing a set of objects to match the ide feild with
+ * @param {string} id: The id to match
+ * @return {Object}  matched object
+ */
+widgetUtils.getObjectById = function(listOfObjects, id, field){
+    field = field || 'id';
+    var obIndex = $.map(listOfObjects, function(obj, index) {
+        if (obj[field] === id) {
+            return index;
+        }
+    });
+    return listOfObjects[obIndex];
+};
+
+/**
+ * Get the key of the object whose value matches given value
+ *
+ * @param {Object} object: Object to search through
+ * @param {string/int} value: value to match to
+ * @return {Object}  matched object
+ */
+widgetUtils.getKeyFromValue = function(object, value){
+  var key;
+  for(key in object){
+    if(object[key] === value){
+      return key;
+    }
+  }
+  return null;
+};
+
+module.exports = widgetUtils;
