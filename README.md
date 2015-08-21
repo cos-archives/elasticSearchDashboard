@@ -27,10 +27,10 @@ Technologies Involved:
 - Full widget communication via spoke and wheel style pattern (widgets communicate with dashboard, and dashboard back to widgets)
 - Mithril c3 and elasticsearch can be abstracted away from developer
 
-***[3]Outstanding Bugs:***
+***[3] Outstanding Bugs:***
 -None visible
 
-***TODOs:***
+***[4] TODOs:***
 - The time series widget pulls time range data from the main request, and filtering the date range then updates this main request. This means that when a range filter is applied, the data points outside of the filter do not display on the subgraph. The desired behavior is to have the subgraph always display the full range of data, regardless of the date filters applied. In the image below, all data points show on subchart:
 - [image]
 But when filter is applied (grey box), the other data points disappear:
@@ -38,17 +38,16 @@ But when filter is applied (grey box), the other data points disappear:
 **FIX:** Create a new parallel request which feeds aggregation data to the timechart, but does not have range filters applied to it. All other filters such as project type, contributor, etc would be applied as normal. Range filters would continue to be applied to the main request. This functionality already exists, a new request just needs to be written.
 -Error handling of elastic errors. Elastic errors will only return the same error every time (‘invalid query’) but other errors such as bad aggregation are possible.
 
-***[4] Future Features:***
-- New widgets: 
---Tag cloud widget: Top tags are displayed in a word cloud: the more mentions, the bigger the cloud. Clicking a tag, filters the results by that tag
---Contributions over time: In github style, personal contributions over time could be plotted from log information. Currently log information is not indexed by elasticsearch, but that it a simple fix. A separate serial request (after getting contributor names) would be necessary to get the correct logs.
+***[5] Future Features:***
+-Tag cloud widget: Top tags are displayed in a word cloud: the more mentions, the bigger the cloud. Clicking a tag, filters the results by that tag
+-Contributions over time: In github style, personal contributions over time could be plotted from log information. Currently log information is not indexed by elasticsearch, but that it a simple fix. A separate serial request (after getting contributor names) would be necessary to get the correct logs.
 ‘You Activity points over time’ widget (again requires log information)
---Contributors chart could be populated from contribution amount over all projects (via logs  and activity points) instead of the current ‘number of projects involved in’. 
---On a single project page (4 - above) could show the contribution percentages of collaborators instead of the current green/blue line.
---Smaller charts embedded into results widget: smaller donut/time charts could be added to individual results to show individual project stats.
---OR filters. Currently only and filters are used, however, the code can handle OR filters (Contributor is XX OR contributor is XX). Some UI changes would have to be made to accommodate or filters. Potentially, AND filters could be switched to OR filters with a click.
---Added to project page, main search page, share page
---Nested parallel requests: Currently requests can be either parallel (fire at the same time) or serial (fire only after previous request completes). Adding ‘nested parallel’ requests means we can have parallel processes fire after the completion of another request (i.e. parallel requests nested in serial requests). Modification of the runRequests function is required, and potential use of async libraries such as async.js may be helpful
+-Contributors chart could be populated from contribution amount over all projects (via logs  and activity points) instead of the current ‘number of projects involved in’. 
+-On a single project page (4 - above) could show the contribution percentages of collaborators instead of the current green/blue line.
+-Smaller charts embedded into results widget: smaller donut/time charts could be added to individual results to show individual project stats.
+-OR filters. Currently only and filters are used, however, the code can handle OR filters (Contributor is XX OR contributor is XX). Some UI changes would have to be made to accommodate or filters. Potentially, AND filters could be switched to OR filters with a click.
+-Added to project page, main search page, share page
+-Nested parallel requests: Currently requests can be either parallel (fire at the same time) or serial (fire only after previous request completes). Adding ‘nested parallel’ requests means we can have parallel processes fire after the completion of another request (i.e. parallel requests nested in serial requests). Modification of the runRequests function is required, and potential use of async libraries such as async.js may be helpful
 
 
 
