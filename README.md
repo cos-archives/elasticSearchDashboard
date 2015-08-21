@@ -6,7 +6,7 @@
 
 **August 21, 2015**
 
-*** [0] Technologies Involved:***
+***[0] Technologies Involved:***
 - Mithril - Client side framework for patterns, DOM management and requests
 - C3.js -  Charting librarary for interactive charts
 - Elasticsearch - database and search library for index and collating documents (nodes)
